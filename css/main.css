@@ -1,0 +1,312 @@
+body{
+    background: url("../static/day.jpeg") no-repeat center;
+    background-position: center 0;
+    background-size: cover;
+    height: 100vh;
+    margin:0;
+    padding:0;
+    color: black;
+}
+#logo{
+    transform: scale(0.6,0.6);
+}
+ul{
+    list-style: none;
+
+}
+li{
+    font-size:3vh;
+    width:70%;
+    height: 5vh;
+    margin-left:15%;
+    top:0;
+    background-color:rgba(255,255,255,0.4);
+    text-align: left;
+    -moz-transition:left 2s; /* Firefox 4 */
+    -webkit-transition:left 2s; /* Safari and Chrome */
+    -o-transition:left 2s; /* Opera */
+    border-bottom: black dotted 2px;
+}
+li:hover{
+    background-color:rgba(255,255,255,0.7)
+}
+li:focus{
+    background-color:rgba(255,255,255,0.7)
+}
+.pencil{
+    transform: scale(0.2,0.2);
+}
+input{
+    background-color:transparent;
+    border: 0;
+    width:30vw;
+    display: inline-block;
+    margin-left:3vw;
+    line-height: 5vh;
+    padding:0;
+    vertical-align:top;
+    font-size:2.5vh;
+    text-decoration: none;
+}
+.delete{
+    transform: rotate(45deg);
+    opacity: 30%;
+    font-size: 4vh;
+    height: 5vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    overflow:hidden
+;
+}
+.deleteWrapper{
+    background-color: cornflowerblue;
+    height: 100%;
+    width: 9vw;
+    vertical-align: top;
+    position: relative;
+    left: 27vw;
+    transition: left 0.3s;
+}
+.highlight{
+    display: inline-block;
+    font-size: 3vh;
+    overflow:hidden;
+    height: 5vh;
+
+}
+.highlightWrapper{
+
+    width: 9vw;
+    height: 5vh;
+    background-color: coral;
+    margin: 0;
+    position:relative;
+    left: 27vw;
+    transition: left 0.2s;
+}
+.finish{
+    font-size: 2vh;
+    line-height: 5vh;
+    margin:0 auto;
+    opacity: 30%;
+    overflow:hidden;
+}
+.finishWrapper{
+    background-color: green;
+    vertical-align: top;
+    width:9vw;
+    height: 5vh;
+    text-align: center;
+    margin:0;
+    position:relative;
+    left: 27vw;
+    transition: left 0.1s;
+}
+.wrapper{
+    display: inline-block;
+    transition: width 0.1s;
+    font-size: 0;
+    margin-left: -2vw;
+    width: 29vw;
+    overflow: hidden;
+}
+.Selected{
+    display: inline-block;
+    width:5vw;
+    height: 100%;
+}
+.AllSelected{
+    border-color:cadetblue;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(239, 247,255,0.5);
+    border-width: 0.5px;
+    margin-left: 5%;
+}
+.AllSelected:hover{
+    background-color:rgba(239, 247,255,0.8);
+}
+.SelectedFinished{
+    border-color:cadetblue;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(239, 247,255,0.5);
+    border-width: 0.5px;
+    margin-left:30%;
+}
+.SelectedFinished:hover{
+    background-color:rgba(239, 247,255,0.8);
+}
+.DeleteFinished{
+    border-color:cadetblue;
+    border-radius: 5px;
+    padding:0.2vh;
+    margin-left: 1%;
+    background-color: rgba(239, 247,255,0.5);
+    border-width: 0.5px;
+
+}
+.DeleteFinished:hover{
+    background-color:rgba(239, 247,255,0.8);
+}
+.AddTODO{
+    border-color:cadetblue;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(239, 247,255,0.5);
+    border-width: 0.5px;
+    margin-left: 1%;
+}
+.AddTODO:hover{
+    background-color:rgba(239, 247,255,0.8);
+}
+.searchBtn{
+    border-color:cadetblue;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(239, 247,255,0.5);
+    border-width: 0.5px;
+    margin-left: 1%;
+}
+.searchBtn:hover{
+    background-color:rgba(239, 247,255,0.8);
+}
+
+.search{
+    font-size:3vh;
+    width:70%;
+    height: 5vh;
+    margin-left:15%;
+    top:0;
+    display: none;
+    background-color:rgba(255,255,255,0.4);
+    text-align: left;
+    -moz-transition:left 2s; /* Firefox 4 */
+    -webkit-transition:left 2s; /* Safari and Chrome */
+    -o-transition:left 2s; /* Opera */
+}
+
+.ToSearch{
+    width:15%;
+    height:100%;
+    vertical-align: top;
+    background-color:transparent;
+    border-top:0;
+    border-bottom: 0;
+    border-right: 0;
+    border-color: rgba(128,128,128,0.5);
+    display: inline-block;
+    margin-left: 5%;
+}
+
+label.todoLabel{
+    background-color:transparent;
+    display:inline-block;
+    width:30vw;
+    margin-left: 1vw;
+    font-size:2.5vh;
+    margin-top: 0;
+    padding-top: 0;
+    line-height: 5vh;
+    vertical-align: top;
+}
+
+.todoInput{
+    display: none;
+    margin-left: 1vw;
+}
+
+li span{
+    font-size: 1.5vh;
+}
+
+.unShow{
+    display: inline-block;
+    padding: 1vw;
+    text-align: center;
+}
+
+.inShow{
+    display: inline-block;
+    text-align: center;
+    padding: 1vw;
+    border: 2px solid darkred;
+}
+
+.unShow:hover{
+    border: 2px solid rgba(139, 0, 0, 0.5);
+}
+.menu{
+    background-color: rgba(101, 84, 76, 0.8);
+    margin-left: 15%;
+    width:70%;
+    height:5vh;
+}
+
+.addTODO2{
+    background-color: rgba(255,255,255,0);
+    border-width: 0;
+    height: 5vh;
+    width: 5vh;
+    border-right: darkred solid 1px;
+}
+.addTODO2:hover{
+    background-color: rgba(255,255,255,0.4);
+}
+
+.all{
+    background-color:rgba(218,165,32,0.7);
+    border-radius: 20px;
+    height: 20vw;
+    width: 20%;
+    vertical-align: bottom;
+}
+.activate{
+    background-color:rgba(47,79,79,0.3);
+    border-radius: 20px;
+    height: 20vw;
+    width: 20%;
+    vertical-align: bottom;
+}
+.complete{
+    background-color:rgba(128,0,0,0.3);
+    border-radius: 20px;
+    height: 20vw;
+    width: 20%;
+    vertical-align: bottom;
+}
+.switcher{
+
+    position: absolute;
+    background-color: rgb(52,79,90);
+    border-radius: 50%;
+    top:5vh;
+    margin-left:0;
+    margin-right:0;
+    z-index: 10;
+    border: 4px solid black;
+}
+
+.switchableFont{
+    color: black;
+}
+
+.wrapperHead{
+    height: 5vh;
+    width: 2vw;
+    vertical-align: top;
+    background-color: gray;
+    position: relative;
+    left: 27vw;
+    transition: left 0.1s;
+    z-index: 99999;
+}

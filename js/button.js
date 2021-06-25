@@ -365,13 +365,13 @@ function inputTODO(ele){
     allCount++
     activeCount++
     updateCount()
-    ele.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
+    el.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
         "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
         "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\">"+inputText+"</label>\n" +
         "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vh;color: transparent'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
         "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"width:100%;height: 5vh;\"></span></div>\n" +
         "       <div class='finishWrapper' style='display: none'><span class=\"finish\" onclick='finishTODO(this)'>&#10003</span></div></div>\n"
-    ele.style.cssText="display:inherit;overflow:hidden;font-size:0"
+    el.style.cssText="display:inherit;overflow:hidden;font-size:0"
     secondChild = list.firstChild.nextSibling.nextSibling;
     list.insertBefore(el, secondChild)
     save()

@@ -34,9 +34,16 @@ window.onload = function (){
     document.querySelector('.switcher').onmousedown = (e) => {
         console.log('down')
         let ele = document.querySelector('.switcher')
-        ele.style.transition= null
-        let disX = e.clientX - ele.offsetLeft;
-        let disY = e.clientY - ele.offsetTop;
+        var disX=null
+        var dixY=null
+        if(e instanceof MouseEvent) {
+            disX = e.clientX - ele.offsetLeft;
+            disY = e.clientY - ele.offsetTop;
+        }
+        else if(e instanceof TouchEvent){
+            disX = e.changedTouches[0].clientX - ele.offsetLeft;
+            disY = e.changedTouches[0].clientY - ele.offsetTop;
+        }
         document.onmousemove = function (e) {
             console.log('move')
             let moveX = e.clientX - disX;
@@ -50,7 +57,7 @@ window.onload = function (){
             }
         };
         document.onmouseup = function (e) {
-            ele.style.transition='all 0.2s'
+
             if(ele.offsetLeft > window.innerWidth/2){
                 ele.style.left=null
                 ele.style.right='0px'
@@ -61,6 +68,37 @@ window.onload = function (){
             }
             document.onmousemove = null;
             document.onmouseup = null;
+        };
+
+        document.ontouchmove= function(e){
+            console.log('move')
+
+            let moveX = e.changedTouches[0].clientX - disX;
+            let moveY = e.changedTouches[0].clientY - disY;
+            console.log(disX)
+            console.log(disY)
+            console.log(moveX)
+            console.log(moveY)
+
+            if (moveX >= 0 && moveX <= window.innerWidth - ele.offsetWidth) {
+                ele.style.left = moveX + 'px';
+            }
+            if (moveY >= 0 && moveY <= window.innerHeight - ele.offsetHeight) {
+                ele.style.top = moveY + 'px';
+            }
+        }
+        document.ontouchend = function (e) {
+
+            if(ele.offsetLeft > window.innerWidth/2){
+                ele.style.left=null
+                ele.style.right='0px'
+            }
+            else {
+                ele.style.right = null
+                ele.style.left = '0px'
+            }
+            document.ontouchmove = null;
+            document.ontouchend = null;
         };
     }
 
@@ -98,13 +136,13 @@ function addTodoList(){
     allCount++
     activeCount++
     updateCount()
-    el.innerHTML="<input class='Selected' type='checkbox' value=''/>\n"+
+    ele.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
         "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
-        "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\"></label>\n" +
-        "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vw;'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
-        "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"height: 5vh;\"></span></div>\n" +
+        "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\">"+inputText+"</label>\n" +
+        "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vh;color: transparent'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
+        "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"width:100%;height: 5vh;\"></span></div>\n" +
         "       <div class='finishWrapper' style='display: none'><span class=\"finish\" onclick='finishTODO(this)'>&#10003</span></div></div>\n"
-    el.style.cssText="display:inherit"
+    ele.style.cssText="display:inherit;overflow:hidden;font-size:0"
     secondChild = list.firstChild.nextSibling.nextSibling;
     list.insertBefore(el, secondChild)
     save()
@@ -124,13 +162,9 @@ function deleteTODO(element){
             else{
                 activeCount--
             }
-            child.style='transition:left 0.4s;'
-            child.style='left:50%;'
-            setTimeout(function(){
-                list.removeChild(child)
-                updateCount()
-                save()
-            }, 200)
+            list.removeChild(child)
+            updateCount()
+            save()
 
             break;
         }
@@ -187,16 +221,9 @@ function highlightTODO(element){
             child.children[2].style.color = colorList[currentColor]
             currentColor = (currentColor+1)%5;
             var tempNode = child
-            if(child!==list.firstChild && list.childElementCount!==1) {
-                child.style = 'transition:top 1s;'
-                child.style = 'top:-20px;'
-            }
-            setTimeout(function(){
-                list.removeChild(tempNode)
-                tempNode.style = "top:0"
-                list.insertBefore(tempNode, list.firstChild.nextSibling.nextSibling)
+            list.removeChild(tempNode)
+            list.insertBefore(tempNode, list.firstChild.nextSibling.nextSibling)
                 save()
-            }, 100)
             break;
         }
         if(child===last) {
@@ -236,18 +263,12 @@ function deleteFinished(){
             }
         }
     }
-    for(var i=0;i<deleteList.length;i++){
-         deleteList[i].style='transition:left 0.4s;'
-         deleteList[i].style='left:50%;'
+    for(var i=0;i<deleteList.length;i++) {
+        list.removeChild(deleteList[i])
     }
-    setTimeout(function(){
+    updateCount()
+    save()
 
-        for(var i=0;i<deleteList.length;i++) {
-            list.removeChild(deleteList[i])
-        }
-        updateCount()
-        save()
-    }, 500)
 }
 
 function finishSelected(){
@@ -279,36 +300,31 @@ function searchTODO(){
     }
     else{
         ele[0].style.display='none'
-        document.getElementById('todolist').style.display='inherit'
-        document.getElementById('todolist2').style.display='none'
+        var list = document.getElementById('todolist')
+        for (var i = 1; i < list.childElementCount; i++) {
+            list.children[i].style.display = 'inherit'
+        }
         isSearch=false
-        var list2=document.getElementById('todolist2')
-        list2.innerHTML=""
+
     }
 }
 
 function search(){
         var searchText = document.getElementById('searchArea').value
         var list = document.getElementById('todolist')
-        var list2 = document.getElementById('todolist2')
-
-        for(var i=1;i<list.childElementCount;i++){
-
-            if(list.children[i].children[2].innerText.includes(searchText)){
-                var el = document.createElement("li")
-                el.innerHTML="<input class='Selected' type='checkbox' value=''/>\n"+
-                    "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
-                    "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\">"+list.children[i].children[2].innerText+"</label>\n" +
-                    "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vw;'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
-                    "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"height: 5vh;\"></span></div>\n" +
-                    "       <div class='finishWrapper' style='display: none'><span class=\"finish\" onclick='finishTODO(this)'>&#10003</span></div></div>\n"
-                el.children[0].style.display='none'
-                el.children[3].style.display='none'
-                list2.appendChild(el)
+        if(inSearch===false) {
+            for (var i = 1; i < list.childElementCount; i++) {
+                if (!list.children[i].children[2].innerText.includes(searchText)) {
+                    list.children[i].style.display = 'none'
+                }
             }
         }
-        document.getElementById('todolist').style.display='none'
-        document.getElementById('todolist2').style.display='inherit'
+        else{
+            for (var i = 1; i < list.childElementCount; i++) {
+                list.children[i].style.display = 'inherit'
+            }
+        }
+        inSearch = !inSearch;
 }
 
 function switchtoInput(ele){
@@ -349,13 +365,13 @@ function inputTODO(ele){
     allCount++
     activeCount++
     updateCount()
-    el.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
+    ele.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
         "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
         "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\">"+inputText+"</label>\n" +
-        "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vw;'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
-        "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"height: 5vh;\"></span></div>\n" +
+        "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vh;color: transparent'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
+        "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"width:100%;height: 5vh;\"></span></div>\n" +
         "       <div class='finishWrapper' style='display: none'><span class=\"finish\" onclick='finishTODO(this)'>&#10003</span></div></div>\n"
-    el.style.cssText="display:inherit"
+    ele.style.cssText="display:inherit;overflow:hidden;font-size:0"
     secondChild = list.firstChild.nextSibling.nextSibling;
     list.insertBefore(el, secondChild)
     save()
@@ -380,12 +396,12 @@ function addTODO2KeyUp(){
         activeCount++
         updateCount()
         ele.innerHTML="<input class='Selected' type='checkbox' value='"+inputText+"'/>\n"+
-        "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
+            "<input style='text-decoration: none;' class=\"todoInput\" TYPE=\"text\" placeholder=\"Add a todo\" onkeyup='todoInputKeyup()' onblur='todoInputBlur(this)'>\n" +
             "        <label style='text-decoration: none;' class=\"todoLabel\" onclick=\"switchtoInput(this)\">"+inputText+"</label>\n" +
-            "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vw;'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
-            "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"height: 5vh;\"></span></div>\n" +
+            "        <div class='wrapper'><div style='display: inline-block' class='wrapperHead' onclick='pullout(this)'><span style='line-height: 5vh;font-weight: 2vh;color: transparent'><</span></div><div style='display: none' class='deleteWrapper'><span class=\"delete\" onclick='deleteTODO(this)'>+</span></div>\n" +
+            "        <div class='highlightWrapper' style='display: none'><span class=\"highlight\" onclick='highlightTODO(this)'><img src='static/light.png' style=\"width:100%;height: 5vh;\"></span></div>\n" +
             "       <div class='finishWrapper' style='display: none'><span class=\"finish\" onclick='finishTODO(this)'>&#10003</span></div></div>\n"
-        ele.style.cssText="display:inherit"
+        ele.style.cssText="display:inherit;overflow:hidden;font-size:0"
         secondChild = list.firstChild.nextSibling.nextSibling;
         list.insertBefore(ele, secondChild)
         save()
@@ -396,24 +412,25 @@ function pullout(ele){
     ele = ele.parentNode.parentNode
     var wrapper = ele.querySelector('.wrapper')
     if(wrapper.children[1].style.display==='none'){
-        wrapper.children[0].style.left='0'
         wrapper.children[0].firstChild.textContent='>'
     }
     else{
-        wrapper.children[0].style.left='27vw'
         wrapper.children[0].firstChild.textContent='<'
     }
     for(var i=1;i<wrapper.childElementCount;i++){
          if(wrapper.children[i].style.display==='none') {
              wrapper.children[i].style.display='inline-block'
-             wrapper.children[i].style.left = '0'
-
          }
          else{
-             wrapper.children[i].style.left = '27vw'
              wrapper.children[i].style.display='none'
          }
      }
+    if(wrapper.children[1].style.display==='none') {
+        wrapper.style.left = '38.25%';
+    }
+    else{
+        wrapper.style.left = '0';
+    }
 }
 
 

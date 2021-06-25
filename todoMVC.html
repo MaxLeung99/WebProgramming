@@ -25,21 +25,20 @@
 <div class="menu">
     <div style="display: flex;align-items: center;height: 100%;">
         <button class="AllSelected" onclick="selectAll()"><span style="font-size: 1.7vh;color:saddlebrown;">全选/取消全选</span></button>
-        <button class="SelectedFinished" onclick="finishSelected()"><span style="font-size: 1.7vh">&#10003</span></button>
+        <button class="SelectedFinished switchableFont" onclick="finishSelected()"><span style="font-size: 1.7vh;text-decoration: line-through">task</span></button>
         <button class="DeleteFinished" onclick="deleteFinished()"><img src="static/trashbin.png" style="height: 1.7vh;vertical-align: bottom"></button>
-        <button class="AddTODO" onclick="addTodoList()"><span style="font-size: 1.7vh">+</span></button>
-        <button class="searchBtn" onclick="searchTODO()"><span style="font-size: 1.7vh">S</span></button>
+        <button class="searchBtn" onclick="searchTODO()"><img src="static/search.png" style="height: 1.7vh;vertical-align: bottom"></button>
     </div>
 </div>
 <div class="search">
     <input id="searchArea" TYPE="text" placeholder="Search Todo" style="width:70%;">
     <button class="ToSearch" onclick="search()"><span style="font-size: 1.7vh">搜索</span></button>
 </div>
-<div style="text-align: center;">
+<div style="text-align: center;overflow: hidden;">
     <ul id="todolist" style="display:inherit;margin-top:0;padding:0">
         <li>
             <button class="addTODO2" onclick="inputTODO(this)"><span class="switchableFont" style="font-size: 3vh;color:gray;font-weight: bold">+</span></button>
-            <input class="switchableFont" style="left:0;width:80%;font-size: 2.5vh;font-style:italic"
+            <input class="switchableFont" style="left:0;width:80%;font-size: 2.5vh;font-style:italic;overflow: hidden;"
                        type="text" placeholder="What do you want to do?" onkeyup="addTODO2KeyUp()"/>
         </li>
     </ul>

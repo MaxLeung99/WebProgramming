@@ -66,11 +66,10 @@ input{
 .deleteWrapper{
     background-color: cornflowerblue;
     height: 100%;
-    width: 9vw;
+    width: 30%;
     vertical-align: top;
-    position: relative;
-    left: 27vw;
     transition: left 0.3s;
+    overflow: hidden;
 }
 .highlight{
     display: inline-block;
@@ -81,12 +80,10 @@ input{
 }
 .highlightWrapper{
 
-    width: 9vw;
+    width: 30%;
     height: 5vh;
     background-color: coral;
     margin: 0;
-    position:relative;
-    left: 27vw;
     transition: left 0.2s;
 }
 .finish{
@@ -99,25 +96,26 @@ input{
 .finishWrapper{
     background-color: green;
     vertical-align: top;
-    width:9vw;
+    width:30%;
     height: 5vh;
     text-align: center;
     margin:0;
-    position:relative;
-    left: 27vw;
     transition: left 0.1s;
 }
 .wrapper{
     display: inline-block;
     transition: width 0.1s;
     font-size: 0;
-    margin-left: -2vw;
-    width: 29vw;
+    width: 42.5%;
+    position: relative;
+    left: 38.25%;
     overflow: hidden;
+    margin:0;
 }
 .Selected{
     display: inline-block;
-    width:5vw;
+    width:5%;
+    margin-left: 3%;
     height: 100%;
 }
 .AllSelected{
@@ -125,60 +123,61 @@ input{
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(239, 247,255,0.5);
+    background-color: rgba(239, 247,255,1);
     border-width: 0.5px;
     margin-left: 5%;
 }
 .AllSelected:hover{
-    background-color:rgba(239, 247,255,0.8);
+    background-color:rgba(239, 247,255,10);
 }
 .SelectedFinished{
-    border-color:cadetblue;
-    border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(239, 247,255,0.5);
-    border-width: 0.5px;
+    background-color: rgba(239, 247,255,0);
+    border: 0;
     margin-left:30%;
+    height: 100%;
 }
 .SelectedFinished:hover{
-    background-color:rgba(239, 247,255,0.8);
+    background-color:rgba(239, 247,255,0);
 }
 .DeleteFinished{
     border-color:cadetblue;
     border-radius: 5px;
     padding:0.2vh;
     margin-left: 1%;
-    background-color: rgba(239, 247,255,0.5);
-    border-width: 0.5px;
-
+    background-color: rgba(239, 247,255,0);
+    border-width: 0px;
+    height: 100%;
 }
 .DeleteFinished:hover{
-    background-color:rgba(239, 247,255,0.8);
+    background-color:rgba(239, 247,255,0);
 }
 .AddTODO{
     border-color:cadetblue;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(239, 247,255,0.5);
-    border-width: 0.5px;
+    background-color: rgba(239, 247,255,0);
+    border-width: 0px;
     margin-left: 1%;
+    height: 100%;
 }
 .AddTODO:hover{
-    background-color:rgba(239, 247,255,0.8);
+    background-color:rgba(239, 247,255,0);
 }
 .searchBtn{
     border-color:cadetblue;
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(239, 247,255,0.5);
-    border-width: 0.5px;
+    background-color: rgba(239, 247,255,0);
+    border-width: 0px;
     margin-left: 1%;
+    height: 100%;
 }
 .searchBtn:hover{
-    background-color:rgba(239, 247,255,0.8);
+    background-color:rgba(239, 247,255,0);
 }
 
 .search{
@@ -211,8 +210,8 @@ input{
 label.todoLabel{
     background-color:transparent;
     display:inline-block;
-    width:30vw;
-    margin-left: 1vw;
+    width:47%;
+    margin-left: 2%;
     font-size:2.5vh;
     margin-top: 0;
     padding-top: 0;
@@ -222,7 +221,8 @@ label.todoLabel{
 
 .todoInput{
     display: none;
-    margin-left: 1vw;
+    margin-left: 2%;
+    width:47%;
 }
 
 li span{
@@ -256,7 +256,7 @@ li span{
     background-color: rgba(255,255,255,0);
     border-width: 0;
     height: 5vh;
-    width: 5vh;
+    width: 10%;
     border-right: darkred solid 1px;
 }
 .addTODO2:hover{
@@ -302,11 +302,9 @@ li span{
 
 .wrapperHead{
     height: 5vh;
-    width: 2vw;
+    width: 10%;
     vertical-align: top;
     background-color: gray;
-    position: relative;
-    left: 27vw;
     transition: left 0.1s;
     z-index: 99999;
 }
